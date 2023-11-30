@@ -3,6 +3,7 @@ cd `dirname $0`
 
 
 
-./no-sudo-password.sh
+./install-node.sh
 
 
+echo ; echo " finished all " ; echo ;
