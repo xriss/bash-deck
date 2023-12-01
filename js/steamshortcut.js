@@ -26,7 +26,7 @@ let vdf_str = VDF.writeVdf(data);
 // no idea why this is what everyone else does...
 let gene_id=function( exe , name )
 {
-  const key = exe + name
+  const key = "" + exe + name
   const top = BigInt( Number("0x"+crc32(key)) ) | BigInt(0x80000000)
   return String( (BigInt(top) << BigInt(32) | BigInt(0x02000000)) )
 }
@@ -50,7 +50,7 @@ let get_userdata_paths=function(user)
 let sc_default=function()
 {
 	return {
-		appid: 0,
+		appid: undefined,
 		appname: '',
 		exe: '',
 		StartDir: '',
@@ -69,15 +69,63 @@ let sc_default=function()
 		tags: {}
 	}
 }
+let sc_set=function(sc)
+{
+	let map={
+		"app-id":                 "appid",
+		"app-name":               "appname",
+		"exe":                    "exe",
+		"start-dir":              "StartDir",
+		"icon":                   "icon",
+		"shortcut-path":          "ShortcutPath",
+		"launch-options":         "LaunchOptions",
+		"is-hidden":              "IsHidden",
+		"allow-desktop-config":   "AllowDesktopConfig",
+		"allow-overlay":          "AllowOverlay",
+		"open-vr":                "OpenVR",
+		"devkit":                 "Devkit",
+		"devkit-game-id":         "DevkitGameID",
+		"devkit-override-app-id": "DevkitOverrideAppID",
+		"last-play-time":         "LastPlayTime",
+		"flatpak-app-id":         "FlatpakAppID",
+		"tags":                   "tags",
+	}
+	
+	sc=sc || {}
+	
+	for(let ko in map)
+	{
+		let ks=map[ko]
+
+		let v=args[ko] // option value
+		if(v!==undefined) // exists
+		{
+			if( String(Number(v)) == String(v) ) { v=Number(v) } // auto cast to number
+			sc[ks]=v // save value
+		}
+	}
+	
+	return sc
+}
 let sc_find=function(list,sc)
 {
 	let idx=-1
 	for(let i in list)
 	{
 		let v=list[i]
-		if( ( v.appname == sc.appname ) && ( v.exe == sc.exe ) )
+		if(sc.appid!==undefined)
+		{
+			if(sc.appid==v.appid) // find appid if given
+			{
+				idx=i
+				break
+			}
+		}
+		else // search
+		if( ( v.appname == sc.appname ) && ( v.exe == sc.exe ) ) // find combo
 		{
 			idx=i
+			break
 		}
 	}
 	return idx
@@ -92,12 +140,19 @@ let sc_cut=function(list,sc)
 	let idx=sc_find(list,sc)
 	if(idx>=0)
 	{
-		return list.slice(idx) // remove from list
+		list.splice(idx,1) // remove from list
 	}
+	return list[idx]
 }
 let sc_paste=function(list,sc)
 {
 	let idx=sc_find(list,sc)
+
+	if(!sc.appid)
+	{
+		sc.appid=gene_id(sc.appname,sc.exe)
+	}
+
 	if(idx>=0)
 	{
 		list[idx]=sc //  replace
@@ -106,16 +161,30 @@ let sc_paste=function(list,sc)
 	{
 		list.push(sc) //  add to end
 	}
+	return sc
 }
 
-let modify_vdf=function(act,it)
+let modify_vdf=function(act,opts)
 {
 	let paths=get_userdata_paths( args.user )
 	if(paths.length==0)
 	{
-		console.error("steam userdata paths not found")
+		console.error("steamshortcut.js userdata paths not found")
 		process.exit(20)
 	}
+	let si=sc_set() // get input option values only
+	if(act!="list")
+	{
+		if(!((si.appname)&&(si.exe)))
+		{
+			if(si.appid==undefined)
+			{
+				console.error("steamshortcut.js --app-name and --exe or just --app-id are required options")
+				process.exit(20)
+			}
+		}
+	}
+
 	for(let base of paths)
 	{
 		let filename=path.join( base , "/config/shortcuts.vdf" )
@@ -123,12 +192,42 @@ let modify_vdf=function(act,it)
 		let data = VDF.readVdf( fs.readFileSync(filename) )
 		let list=[] ; for(let n in data.shortcuts) { list[n]=data.shortcuts[n] }
 
-
-
+		if(act=="add")
+		{
+			let sc=sc_default()
+			sc_set(sc)
+			sc_paste(list,sc)
+			console.log("adding")
+			console.log(sc)
+		}
+		else
+		if(act=="remove")
+		{
+			let sc=sc_cut(list,si)
+			console.log("removing")
+			console.log(sc)
+		}
+		else
+		if(act=="edit")
+		{
+			let sc=sc_get(list,si)
+			if(!sc) { sc=sc_default() }
+			sc_set(sc)
+			sc_paste(list,sc)
+			console.log("editing")
+			console.log(sc)
+		}
 		
-		console.log(list)
-		data.shortcuts={} ; for( let n in list ) { data.shortcuts[ (""+n) ]=list[n] }
-		fs.writeFileSync( filename , VDF.writeVdf(data) )
+		if(act=="list")
+		{
+			console.log("listing")
+			console.log(list)
+		}
+		else
+		{
+			data.shortcuts={} ; for( let n in list ) { data.shortcuts[ (""+n) ]=list[n] }
+			fs.writeFileSync( filename , VDF.writeVdf(data) )
+		}
 	}
 }
 
@@ -147,19 +246,49 @@ steamshortcut.js
 	Specify the id of the user to modify, without this option we will 
 	modify shortcuts for all users.
 
+--app-id=
+--app-name=
+--exe=
+--start-dir=
+--icon=
+--shortcut-path=
+--launch-options=
+--is-hidden=0
+--allow-desktop-config=1
+--allow-overlay=1
+--open-vr=0
+--devkit=0
+--devkit-game-id=
+--devkit-override-app-id=0
+--last-play-time=0
+--flatpak-app-id=
 
-steamshortcut.js add --name="Show This Name" --exe="~/run_this.sh"
-	Add a shortcut to steam. You must specify a name and exe.
+	Can all be used to set the appropriate value in the shortcut. An 
+	app-id will be auto-generated if missing.
+		
+steamshortcut.js list
+	List all steam shortcut values.
+
+steamshortcut.js add --app-name="Show This Name" --exe="~/run_this.sh"
+	Add a shortcut to steam. You must specify an app-name and exe or an 
+	app-id.
 	
-steamshortcut.js remove --name="Show This Name" --exe="~/run_this.sh"
-	Remove a shortcut from steam. You must specify a name and exe.
+steamshortcut.js remove --app-name="Show This Name" --exe="~/run_this.sh"
+	Remove a shortcut from steam. You must specify an app-name and exe 
+	or an app-id.
 
-steamshortcut.js edit --name="Show This Name" --exe="~/run_this.sh"
-	Edit a shortcut on steam. You must specify a name and exe.
+steamshortcut.js edit --app-name="Show This Name" --exe="~/run_this.sh"
+	Edit a shortcut on steam. You must specify an app-name and exe or 
+	an app-id.
 
 steamshortcut.js help
 	Show this help text.
 `)
+}
+else
+if( cmd=="list" )
+{
+	modify_vdf("list",{})
 }
 else
 if( cmd=="add" )
@@ -178,8 +307,9 @@ if( cmd=="remove" )
 }
 else
 {
-	console.log(`
-shortcut.js unknown command
+	console.error(`
+steamshortcut.js unknown command
 `)
+	process.exit(20)
 }
 
