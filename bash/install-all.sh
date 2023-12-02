@@ -2,10 +2,10 @@
 cd `dirname $0`
 
 
-bash/install-streaming.sh
+../bash/install-streaming.sh
 
 
-install/decky-loader.sh
+../install/decky-loader.sh
 
 
 echo ; echo " finished install , press enter " ; echo ;
