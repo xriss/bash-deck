@@ -2,6 +2,9 @@
 cd `dirname $0`
 
 
+../bash/github-pull.sh
+
+
 ../bash/install-streaming.sh
 
 
