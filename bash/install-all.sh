@@ -8,4 +8,5 @@ bash/install-streaming.sh
 install/decky-loader.sh
 
 
-echo ; echo " finished all " ; echo ;
+echo ; echo " finished install , press enter " ; echo ;
+read

@@ -1,0 +1,7 @@
+#!/usr/bin/env xdg-open
+ 
+[Desktop Entry]
+Type=Application
+Name=Install-bash-deck
+Exec=bash -i -e -c "exec \\"\\$(dirname \\"\\$0\\")/bash/install-all.sh\\"" %k
+Terminal=true
