@@ -7,7 +7,6 @@ cat ./github-pull.sh | bash -i
 
 cat ./install-node.sh | bash -i
 
-cat ../install/decky-loader.sh | bash -i
 
 cat ../install/gamepass-streaming.sh | bash -i
 cat ../install/geforce-streaming.sh | bash -i

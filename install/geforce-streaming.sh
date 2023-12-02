@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -i
 cd `dirname $0`
 
 flatpak install -y com.microsoft.Edge
