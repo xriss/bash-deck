@@ -240,7 +240,7 @@ steamshortcut.js
 	steam deck and untested on windows.
 	
 	Ideally this should be run when steam is not active and steam needs 
-	to be restarted for this is take effect.
+	to be restarted for this to take effect.
 
 --user=12345
 	Specify the id of the user to modify, without this option we will 
