@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -i
 cd `dirname $0`
 
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash -i

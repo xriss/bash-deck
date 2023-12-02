@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -i
 cd `dirname $0`
 
 
@@ -9,8 +9,8 @@ cat ./install-node.sh | bash -i
 
 
 cat ../install/gamepass-streaming.sh | bash -i
-cat ../install/geforce-streaming.sh | bash -i
-cat ../install/luna-streaming.sh | bash -i
+#cat ../install/geforce-streaming.sh | bash -i
+#cat ../install/luna-streaming.sh | bash -i
 
 
-echo ; echo " finished all " ; echo ;
+echo ; echo " finished streaming " ; echo ;
