@@ -11,5 +11,4 @@ cd `dirname $0`
 ../install/decky-loader.sh
 
 
-echo ; echo " finished install , press enter ( A button ) " ; echo ;
-read
+echo ; echo " finished install " ; echo ;
