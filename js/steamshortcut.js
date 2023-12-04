@@ -14,12 +14,16 @@ const args = minimist(process.argv.slice(2),{boolean:true})
 
 /*
 
-let vdf_dat = fs.readFileSync('/home/deck/.local/share/Steam/userdata/302758/config/shortcuts.vdf');
-let data = VDF.readVdf(vdf_dat);
+do something with images?
 
-console.log(data);
+/home/deck/.local/share/Steam/appcache/librarycache/
 
-let vdf_str = VDF.writeVdf(data);
+	{id}_header.jpg",			 460 x 215
+	{id}_icon.jpg",				  32 x  32
+	{id}_library_600x900.png",	 300 × 450
+	{id}_library_hero.png",		1920 × 620
+
+
 */
 
 
