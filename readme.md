@@ -1,4 +1,3 @@
-# Under construction...
 
 I find typing on the steam deck rather annoying and setting up a 
 keyboard etc even more annoying. Combine this with any tweak I might 
@@ -6,15 +5,20 @@ make to my steam deck needing to be repeated on my partners steam deck
 and you can see that I must resort to programming rather than suffer 
 these indignities.
 
-This git repo contains a number of bash scripts to perform various 
-useful steam deck installs and tweaks whilst avoiding as much typing as 
-possible.
+This git repo contains a number of bash scripts to perform useful steam 
+deck installs whilst avoiding as much typing as possible.
+
+Currently it will install decky-loader and gamepass-steaming both are 
+working well for me...
 
 I recommend cloning this repo to you steam desktop and you can then 
-click it on your desktip to open the folder and choose and run the bash 
-scripts within. My plan is that the bash scripts will simply accept 
-cursor keys ( use the dpad ) and enter key ( use button a ) to fully 
-control them so no need to type just select from menus.
+click it on your desktop to open the folder to choose and run the 
+desktop/bash files within.
+
+# Install
+
+You can download this repo as a zip from github, extract it and then 
+double click on install-bash-deck.desktop to install everything.
 
 
 # How to clone to your steam deck with minimal typing ...
@@ -35,22 +39,38 @@ that easily copy to your steam deck. So any typing can be done there.
 The above will require you to login and type git into search bars to 
 find the right app and deck to find the right repo.
 
+The advantage of this way is you can tweak the scipts on your fork and 
+easily send the changes to your steamdeck without having to type on it.
+
+The github-pull script in bash can be used to pull changes onto the 
+steamdeck from github.
+
+
+# Run
+
+Once you have this repo on your steamdeck then...
+
+Double click the install-bash-deck.desktop to perform all of the 
+installs in the install directory.
+
+Alternatively you can go into the folders and choose exactly what to 
+run.
 
 # Folders
 
-1. install
-
-	Contains bash scripts to install programs, run with no arguments 
-	( just click on them ) to install the program.
-	
-	Other possible command line arguments are `remove` , `version` and 
-	the default of `install`
- 
-2. github
-
-	Contains bash scripts to `pull` changes from github etc.
-
-3. bash
+1. bash
 
 	Internal scripts to help with other scripts.
+	
+	Before Installing any shortcut you will need to run the 
+	install-node script to setup the node program ( see js folder for 
+	source ) that creates steam shortcuts.
+
+2. install
+
+	Contains .sh bash scripts to install programs and .desktop files to 
+	make running the .sh files easier. Just double click the .desktop 
+	file to run the .sh file and perform the install.
+	
+
 
