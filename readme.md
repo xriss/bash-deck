@@ -20,6 +20,8 @@ desktop/bash files within.
 You can download this repo as a zip from github, extract it and then 
 double click on install-bash-deck.desktop to install everything.
 
+https://github.com/xriss/bash-deck/archive/refs/heads/main.zip
+
 
 # How to clone to your steam deck with minimal typing ...
 
