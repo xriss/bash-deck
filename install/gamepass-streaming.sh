@@ -1,9 +1,14 @@
 #!/bin/bash -i
 cd `dirname $0`
 
+# use edge browser
 flatpak install -y com.microsoft.Edge
 flatpak --user override --filesystem=/run/udev:ro com.microsoft.Edge
 
+# install node if not installed yet
+[ ! -d "../js/node_modules" ] && ../bash/install-node.sh
+
+# create shortcut
 ../js/steamshortcut.js add \
 --app-name="Gamepass Streaming" \
 --exe="/usr/bin/flatpak" \

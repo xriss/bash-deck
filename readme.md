@@ -9,7 +9,7 @@ This git repo contains a number of bash scripts to perform useful steam
 deck installs whilst avoiding as much typing as possible.
 
 Currently it will install decky-loader and gamepass-steaming both are 
-working well for me...
+working well for me.
 
 I recommend cloning this repo to you steam desktop and you can then 
 click it on your desktop to open the folder to choose and run the 
