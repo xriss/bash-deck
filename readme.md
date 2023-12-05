@@ -63,12 +63,8 @@ run.
 1. bash
 
 	Internal scripts to help with other scripts.
-	
-	Before Installing any shortcut you will need to run the 
-	install-node script to setup the node program ( see js folder for 
-	source ) that creates steam shortcuts.
 
-2. install
+3. install
 
 	Contains .sh bash scripts to install programs and .desktop files to 
 	make running the .sh files easier. Just double click the .desktop 
