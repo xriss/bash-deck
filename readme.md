@@ -8,9 +8,6 @@ these indignities.
 This git repo contains a number of bash scripts to perform useful steam 
 deck installs whilst avoiding as much typing as possible.
 
-Currently it will install decky-loader and gamepass-steaming both are 
-working well for me.
-
 I recommend cloning this repo to you steam desktop and you can then 
 click it on your desktop to open the folder to choose and run the 
 desktop/bash files within.
@@ -71,4 +68,20 @@ run.
 	file to run the .sh file and perform the install.
 	
 
+# Install
 
+This repo can install the following.
+
+- [x] Decky Loader https://decky.xyz/
+- [x] Gamepass Streaming via Browser shortcut.
+- [x] GeForce NOW Streaming via Browser shortcut.
+- [ ] Luna Streaming via Browser shortcut.
+
+
+Luna streaming is a bit annoying as it keeps updating and breaking. It 
+used to work but currently I keep having to change the User-Agent in 
+the browser. You can do it by opening more tools / developer tools / 
+console / network conditions ( network conditions is found under the 
+right arrow menu to the side of console ) . Then selecting a different 
+user-agent from the dropdown list (probably chrome and windows) until 
+it works. 

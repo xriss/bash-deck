@@ -1,0 +1,7 @@
+#!/usr/bin/env xdg-open
+ 
+[Desktop Entry]
+Type=Application
+Name=run .sh with same basename as this .desktop
+Exec=bash -i -e -c "\\"\\${0%.*}.sh\\";echo;echo press enter to continue;echo;read" %k
+Terminal=true
