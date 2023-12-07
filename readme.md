@@ -74,7 +74,7 @@ This repo can install the following.
 
 - [x] Decky Loader https://decky.xyz/
 - [x] Gamepass Streaming via Browser shortcut.
-- [x] GeForce now Streaming via Browser shortcut.
+- [x] GeForce NOW Streaming via Browser shortcut.
 - [ ] Luna Streaming via Browser shortcut.
 
 
