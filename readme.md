@@ -68,7 +68,7 @@ run.
 	file to run the .sh file and perform the install.
 	
 
-# Install
+# Installs available
 
 This repo can install the following.
 
