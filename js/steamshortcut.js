@@ -193,9 +193,14 @@ let modify_vdf=function(act,opts)
 	{
 		let filename=path.join( base , "/config/shortcuts.vdf" )
 		console.log( "modifying : " + filename )
-		let data = VDF.readVdf( fs.readFileSync(filename) )
-		let list=[] ; for(let n in data.shortcuts) { list[n]=data.shortcuts[n] }
-
+		let data={}
+		let list=[]
+		if( fs.existsSync(filename) ) // shortcuts file might not exist
+		{
+			data = VDF.readVdf( fs.readFileSync(filename) )
+			for(let n in data.shortcuts) { list[n]=data.shortcuts[n] }
+		}
+		
 		if(act=="add")
 		{
 			let sc=sc_default()
